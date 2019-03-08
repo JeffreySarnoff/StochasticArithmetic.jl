@@ -48,12 +48,38 @@ function twoDiv end
 
 # * Generic implementation
 
-# Generic implementation of twoSum. Uses the algorithm by D. Knuth.
-function twoSum(a, b)
-    x = a + b
-    z = x - a
-    y = (a - (x-z)) + (b-z)
-    return (x,y)
+const FMAFloat = Union{Float64, Float32}
+
+function twoSum(a::T, b::T) where {T<:FMAFloat}
+    hi = a + b
+    a1 = hi - b
+    b1 = hi - a1
+    lo = (a - a1) + (b - b1)
+    return hi, lo
+end
+
+function twoDiff(a::T, b::T) where {T<:FMAFloat}
+    hi = a - b
+    a1 = hi + b
+    b1 = hi - a1
+    lo = (a - a1) - (b + b1)
+    return hi, lo
+end
+
+ function twoProd(a::T, b::T) where {T<:FMAFloat}
+    p = a * b
+    e = fma(a, b, -p)
+    p, e
+end
+
+# note that `two_div` is not always error-free, it is always faithful
+# abs(true - two_div) < 1ulp
+
+function twoDiv(a::T, b::T) where {T<:FMAFloat}
+     hi = a / b
+     lo = fma(-hi, b, a)
+     lo /= b
+     return hi, lo
 end
 
 
@@ -84,6 +110,7 @@ function Base.split(a)
     return (x, y)
 end
 
+#=
 # Generic implementation of TwoProd. Uses the algorithm by Veltkamp.
 function twoProd(a, b)
     x = a * b
@@ -99,7 +126,7 @@ function twoDiv(a, b)
     y = (a-p1-p2)/b
     return (x, y)
 end
-
+=#
 
 # * Specific algorithms for Float32
 

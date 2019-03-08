@@ -48,7 +48,7 @@ function twoDiv end
 
 # * Generic implementation
 
-const FMAFloat = Union{Float64, Float32}
+const FMAFloat = Union{Double64, Double32, Float64, Float32}
 
 function twoSum(a::T, b::T) where {T<:FMAFloat}
     hi = a + b

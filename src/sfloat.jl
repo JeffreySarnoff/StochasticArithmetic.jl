@@ -1,6 +1,17 @@
 abstract type SFloat <: Number end
 
 """
+Stochastic Double64
+
+This type represents a double-precision (64-bit) floating-point number, on which
+every operation gets randomly rounded upwards or downwards.
+"""
+struct DFloat64 <: SFloat
+    value :: Double64
+end
+DFloat64(x::DFloat64) = DFloat64(x.value)
+
+"""
 Stochastic Float64
 
 This type represents a double-precision (64-bit) floating-point number, on which

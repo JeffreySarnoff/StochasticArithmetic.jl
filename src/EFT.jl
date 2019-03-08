@@ -1,6 +1,6 @@
 module EFT
 export twoSum, twoProd, twoDiv
-
+using DoubleFloats
 # * Documentation of functions
 
 @doc raw"""

@@ -73,6 +73,7 @@ macro reliable_digits(expr)
         mu = mean(x)
         sigma = std(x)
         s = -log10.((/).(sigma, abs.(mu)))
-        zip(mu, s) |> collect |> deref
+        n = trunc(Int, s)
+        zip(mu, n) |> collect |> deref
     end
 end
